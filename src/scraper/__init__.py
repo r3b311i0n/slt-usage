@@ -19,9 +19,6 @@ class Scraper:
         self.firefox_options.binary_location = '/bin/firefox'
         self.firefox_options.set_headless(True)
         self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
-        self.scrape()
-
-    def scrape(self):
         Captcha(self.browser).start()
         self._submit_form()
         self._print_stats()
@@ -49,6 +46,8 @@ class Scraper:
                   + Style.NORMAL + Fore.MAGENTA + f'{remainder[5].text}')
         except IndexError:
             print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Invalid Captcha!')
+            self.browser.quit()
+            Scraper(self.user, self.password)
 
     def _submit_form(self):
         answer = self._read_captcha_answer()
