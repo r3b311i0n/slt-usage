@@ -1,18 +1,16 @@
 import sys
-import threading
 from colorama import init, Fore, Style
 from halo import Halo
 from selenium import webdriver
-from subprocess import call
-
-_SLT_URL = 'https://www.internetvas.slt.lk/SLTVasPortal-war/application/index.nable'
+from scraper.captcha import Captcha
 
 
 # TODO: Handle lots of exceptions.
 # TODO: Get some pretty printers.
-class Scraper(threading.Thread):
+
+
+class Scraper:
     def __init__(self, user, password):
-        super().__init__()
         init()
         self.spinner = Halo(text='Loading', spinner='dots')
         self.user = user
@@ -21,7 +19,10 @@ class Scraper(threading.Thread):
         self.firefox_options.binary_location = '/bin/firefox'
         self.firefox_options.set_headless(True)
         self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
-        self._show_captcha()
+        self.scrape()
+
+    def scrape(self):
+        Captcha(self.browser).start()
         self._submit_form()
         self._print_stats()
 
@@ -33,18 +34,21 @@ class Scraper(threading.Thread):
 
     def _print_stats(self):
         remainder = self.browser.find_elements_by_class_name('progress-label')
-        print(Fore.CYAN +
-              f'\nTotal Volume:\n\n' +
-              Fore.MAGENTA +
-              f'{remainder[0].text}\n'
-              + Style.BRIGHT + Fore.RED + f'{remainder[1].text}\n'
-              + Style.NORMAL + Fore.MAGENTA + f'{remainder[2].text}' +
-              Fore.CYAN +
-              f'\n\n\nPeak Volume:\n\n' +
-              Fore.MAGENTA +
-              f'{remainder[3].text}\n'
-              + Style.BRIGHT + Fore.RED + f'{remainder[4].text}\n'
-              + Style.NORMAL + Fore.MAGENTA + f'{remainder[5].text}')
+        try:
+            print(Fore.CYAN +
+                  f'\nTotal Volume:\n\n' +
+                  Fore.MAGENTA +
+                  f'{remainder[0].text}\n'
+                  + Style.BRIGHT + Fore.RED + f'{remainder[1].text}\n'
+                  + Style.NORMAL + Fore.MAGENTA + f'{remainder[2].text}' +
+                  Fore.CYAN +
+                  f'\n\n\nPeak Volume:\n\n' +
+                  Fore.MAGENTA +
+                  f'{remainder[3].text}\n'
+                  + Style.BRIGHT + Fore.RED + f'{remainder[4].text}\n'
+                  + Style.NORMAL + Fore.MAGENTA + f'{remainder[5].text}')
+        except IndexError:
+            print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Invalid Captcha!')
 
     def _submit_form(self):
         answer = self._read_captcha_answer()
@@ -56,17 +60,6 @@ class Scraper(threading.Thread):
 
         self.browser.find_element_by_xpath('//input[@value="Sign in"]').click()
         self.spinner.stop()
-
-    def _show_captcha(self):
-        self.spinner.start()
-        self.browser.get(_SLT_URL)
-        elem = self.browser.find_element_by_css_selector('tr > td > img')
-        with open('cap.png', 'w+b') as f:
-            f.write(elem.screenshot_as_png)
-
-        self.spinner.stop()
-
-        call(['termpix', 'cap.png', '--true-colour', '--width', '97', '--height', '19'])
 
     def __del__(self):
         self.browser.quit()
