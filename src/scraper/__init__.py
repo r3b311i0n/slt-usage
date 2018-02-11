@@ -7,7 +7,8 @@ from subprocess import call
 _SLT_URL = 'https://www.internetvas.slt.lk/SLTVasPortal-war/application/index.nable'
 
 
-# TODO: Handle lots of exceptions
+# TODO: Handle lots of exceptions.
+# TODO: Get some pretty printers.
 class Scraper(threading.Thread):
     def __init__(self, user, password):
         super().__init__()
@@ -20,13 +21,18 @@ class Scraper(threading.Thread):
         self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
         self.show_captcha()
         self.submit_form()
-        print(self.browser.current_url)
+        self.show_stats()
 
     @staticmethod
     def read_captcha_answer():
         print('Please enter captcha:')
         answer = sys.stdin.readline()
         return answer
+
+    def show_stats(self):
+        remainder = self.browser.find_elements_by_class_name('progress-label')
+        print(f'\nTotal Volume:\n\n{remainder[0].text}\n{remainder[1].text}\n{remainder[2].text}'
+              f'\n\n\nPeak Volume:\n\n{remainder[3].text}\n{remainder[4].text}\n{remainder[5].text}')
 
     def submit_form(self):
         answer = self.read_captcha_answer()
