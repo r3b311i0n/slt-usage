@@ -17,15 +17,17 @@ class Captcha(Thread):
         self._show_captcha()
 
     def _show_captcha(self):
-        xdg_captcha_cache = BaseDirectory.save_cache_path('slt-usage') + '/cap.png'
-        if sys.platform != 'win32':
+        platform = sys.platform
+        xdg_captcha_cache = './cap.png' if (platform == 'win32') \
+            else BaseDirectory.save_cache_path('slt-usage') + '/cap.png'
+        if platform != 'win32':
             self.spinner.start()
         self.browser.get(_SLT_URL)
         elem = self.browser.find_element_by_css_selector('tr > td > img')
         with open(xdg_captcha_cache, 'w+b') as f:
             f.write(elem.screenshot_as_png)
 
-        if sys.platform != 'win32':
+        if platform != 'win32':
             self.spinner.stop()
 
         try:

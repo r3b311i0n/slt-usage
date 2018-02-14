@@ -5,7 +5,8 @@ from xdg import BaseDirectory
 
 
 def get_settings():
-    conf_path = BaseDirectory.save_config_path('slt-usage') + '/conf.json'
+    conf_path = './conf.json' if (sys.platform == 'win32') \
+        else BaseDirectory.save_config_path('slt-usage') + '/conf.json'
     try:
         conf = json.load(open(conf_path))
     except FileNotFoundError:

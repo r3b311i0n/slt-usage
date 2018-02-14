@@ -6,6 +6,7 @@ from scraper.captcha import Captcha
 
 
 # TODO: Handle lots of exceptions (gecko-driver not found).
+# TODO: Mac support.
 
 class Scraper:
     def __init__(self, user, password):
@@ -48,8 +49,9 @@ class Scraper:
             Scraper(self.user, self.password)
 
     def _submit_form(self):
+        platform = sys.platform
         answer = self._read_captcha_answer()
-        if sys.platform != 'win32':
+        if platform != 'win32':
             self.spinner.start()
         self.browser.find_element_by_xpath('//input[@placeholder="Portal Username eg: CEN2121212"]'). \
             send_keys(self.user)
@@ -57,7 +59,7 @@ class Scraper:
         self.browser.find_element_by_xpath('//input[@placeholder="Enter Above Captcha"]').send_keys(answer)
 
         self.browser.find_element_by_xpath('//input[@value="Sign in"]').click()
-        if sys.platform != 'win32':
+        if platform != 'win32':
             self.spinner.stop()
 
     def __del__(self):
