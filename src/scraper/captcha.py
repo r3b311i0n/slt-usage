@@ -1,5 +1,7 @@
 import sys
+from colorama import init, Fore, Style
 from halo import Halo
+from PIL import Image
 from subprocess import call
 from threading import Thread
 from xdg import BaseDirectory
@@ -26,4 +28,11 @@ class Captcha(Thread):
         if sys.platform != 'win32':
             self.spinner.stop()
 
-        call(['termpix', xdg_captcha_cache, '--true-colour', '--width', '97', '--height', '19'])
+        try:
+            call(['termpix', xdg_captcha_cache, '--true-colour', '--width', '97', '--height', '19'])
+        except FileNotFoundError:
+            init()
+            print(Fore.RED + Style.BRIGHT +
+                  '\nInstall termpix (https://github.com/hopey-dishwasher/termpix)'
+                  ' to view captcha inline on the terminal!')
+            Image.open(xdg_captcha_cache).show()

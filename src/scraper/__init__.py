@@ -5,7 +5,7 @@ from selenium import webdriver
 from scraper.captcha import Captcha
 
 
-# TODO: Handle lots of exceptions.
+# TODO: Handle lots of exceptions (gecko-driver not found).
 
 class Scraper:
     def __init__(self, user, password):
