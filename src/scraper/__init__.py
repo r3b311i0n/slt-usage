@@ -2,10 +2,11 @@ import sys
 from colorama import init, Fore, Style
 from halo import Halo
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
+
 from scraper.captcha import Captcha
 
 
-# TODO: Handle lots of exceptions (gecko-driver not found).
 # TODO: Mac support.
 
 class Scraper:
@@ -17,7 +18,10 @@ class Scraper:
         self.firefox_options = webdriver.FirefoxOptions()
         self.firefox_options.binary_location = '/bin/firefox'
         self.firefox_options.set_headless(True)
-        self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
+        try:
+            self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
+        except WebDriverException:
+            print('GeckoDriver and Firefox NOT FOUND! GeckoDriver and Firefox needs to be installed and in $PATH!')
         Captcha(self.browser).start()
         self._submit_form()
         self._print_stats()
