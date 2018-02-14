@@ -6,8 +6,6 @@ from scraper.captcha import Captcha
 
 
 # TODO: Handle lots of exceptions.
-# TODO: Get some pretty printers.
-
 
 class Scraper:
     def __init__(self, user, password):
