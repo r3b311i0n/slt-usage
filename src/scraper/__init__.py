@@ -49,14 +49,16 @@ class Scraper:
 
     def _submit_form(self):
         answer = self._read_captcha_answer()
-        self.spinner.start()
+        if sys.platform != 'win32':
+            self.spinner.start()
         self.browser.find_element_by_xpath('//input[@placeholder="Portal Username eg: CEN2121212"]'). \
             send_keys(self.user)
         self.browser.find_element_by_class_name('ui-password').send_keys(self.password)
         self.browser.find_element_by_xpath('//input[@placeholder="Enter Above Captcha"]').send_keys(answer)
 
         self.browser.find_element_by_xpath('//input[@value="Sign in"]').click()
-        self.spinner.stop()
+        if sys.platform != 'win32':
+            self.spinner.stop()
 
     def __del__(self):
         self.browser.quit()
