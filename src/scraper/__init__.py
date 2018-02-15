@@ -8,6 +8,7 @@ from scraper.captcha import Captcha
 
 
 # TODO: Mac support.
+# TODO: Handle Firefox for Windows.
 
 class Scraper:
     def __init__(self, user, password):

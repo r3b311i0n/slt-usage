@@ -43,6 +43,7 @@ $ slt-usage
 ### TODO:
 
 * Mac support
+* Windows support
 
 ### License
 
