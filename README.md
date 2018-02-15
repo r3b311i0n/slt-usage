@@ -37,8 +37,10 @@ ___
 ### Usage
 
 ```sh
-$ slt-usage
+$ slt
 ```
+
+![screenshot][screenshot]
 
 ### TODO:
 
@@ -50,6 +52,7 @@ $ slt-usage
 MIT
 
 [slt-logo]: ./.misc/slt-logo.png "SLT Logo"
+[screenshot]: ./.misc/screenshot.png "Screenshot"
 
 [firefox]: https://www.mozilla.org/en-US/firefox
 [python]: https://www.python.org
