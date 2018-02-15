@@ -257,7 +257,6 @@ pip-selfcheck.json
 
 # Custom stuff
 /tmp/
-*.png
 *.gif
 *.txt
 /.idea/
