@@ -4,7 +4,7 @@ from halo import Halo
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
-from scraper.captcha import Captcha
+from .captcha import Captcha
 
 
 # TODO: Mac support.
