@@ -4,6 +4,8 @@ from scraper import Scraper
 from xdg import BaseDirectory
 
 
+# TODO: Handle network errors.
+
 def get_settings():
     conf_path = './conf.json' if (sys.platform == 'win32') \
         else BaseDirectory.save_config_path('slt-usage') + '/conf.json'
