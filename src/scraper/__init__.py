@@ -11,8 +11,9 @@ from scraper.captcha import Captcha
 # TODO: Handle Firefox for Windows.
 
 class Scraper:
-    def __init__(self, user, password):
+    def __init__(self, user, password, platform):
         init()
+        self.platform = platform
         self.spinner = Halo(text='Loading', spinner='dots')
         self.user = user
         self.password = password
@@ -51,12 +52,11 @@ class Scraper:
         except IndexError:
             print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Invalid Captcha!')
             self.browser.quit()
-            Scraper(self.user, self.password)
+            Scraper(self.user, self.password, self.platform)
 
     def _submit_form(self):
-        platform = sys.platform
         answer = self._read_captcha_answer()
-        if platform != 'win32':
+        if self.platform != 'win32':
             self.spinner.start()
         self.browser.find_element_by_xpath('//input[@placeholder="Portal Username eg: CEN2121212"]'). \
             send_keys(self.user)
@@ -64,7 +64,7 @@ class Scraper:
         self.browser.find_element_by_xpath('//input[@placeholder="Enter Above Captcha"]').send_keys(answer)
 
         self.browser.find_element_by_xpath('//input[@value="Sign in"]').click()
-        if platform != 'win32':
+        if self.platform != 'win32':
             self.spinner.stop()
 
     def __del__(self):

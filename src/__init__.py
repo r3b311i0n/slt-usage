@@ -6,8 +6,8 @@ from xdg import BaseDirectory
 
 # TODO: Handle network errors.
 
-def get_settings():
-    conf_path = './conf.json' if (sys.platform == 'win32') \
+def get_settings(platform_conf):
+    conf_path = './conf.json' if (platform_conf == 'win32') \
         else BaseDirectory.save_config_path('slt-usage') + '/conf.json'
     try:
         conf = json.load(open(conf_path))
@@ -31,5 +31,6 @@ def create_conf(conf_path):
 
 
 if __name__ == '__main__':
-    settings = get_settings()
-    Scraper(settings[0], settings[1])
+    platform = sys.platform
+    settings = get_settings(platform)
+    Scraper(settings[0], settings[1], platform)
