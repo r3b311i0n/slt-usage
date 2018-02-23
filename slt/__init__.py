@@ -1,12 +1,14 @@
 import json
 import sys
+from scraper import Scraper
 from xdg import BaseDirectory
 
-from .scraper import Scraper
 
+# TODO: Handle network errors.
+# TODO: Use a gif in README.md.
 
-def get_settings():
-    conf_path = './conf.json' if (sys.platform == 'win32') \
+def get_settings(platform_conf):
+    conf_path = './conf.json' if (platform_conf == 'win32') \
         else BaseDirectory.save_config_path('slt-usage') + '/conf.json'
     try:
         conf = json.load(open(conf_path))
@@ -29,6 +31,7 @@ def create_conf(conf_path):
     return json.load(open(conf_path))
 
 
-def main():
-    settings = get_settings()
-    Scraper(settings[0], settings[1])
+if __name__ == '__main__':
+    platform = sys.platform
+    settings = get_settings(platform)
+    Scraper(settings[0], settings[1], platform)
