@@ -4,7 +4,7 @@ setup(
     name='slt',
     packages=find_packages(),
     package_dir={'slt': 'src'},
-    version='0.9.0',
+    version='0.10.0',
     description='Unofficial usage checker for SLT Internet',
     author='Amal Karunarathna',
     author_email='nasashinega@gmail.com',

@@ -1,6 +1,7 @@
 import sys
 from colorama import init, Fore, Style
 from halo import Halo
+from os import devnull
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
@@ -21,7 +22,7 @@ class Scraper:
         self.firefox_options.binary_location = '/bin/firefox'
         self.firefox_options.set_headless(True)
         try:
-            self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
+            self.browser = webdriver.Firefox(options=self.firefox_options, log_path=devnull)
         except WebDriverException:
             print('GeckoDriver or Firefox NOT FOUND! GeckoDriver and Firefox needs to be installed and in $PATH!')
         Captcha(self.browser).start()
