@@ -12,7 +12,7 @@ from scraper.captcha import Captcha
 # TODO: Handle Firefox for Windows.
 
 class Scraper:
-    def __init__(self, user, password, platform):
+    def __init__(self, user: str, password: str, platform: str):
         init()
         self.platform = platform
         self.spinner = Halo(text='Loading...', spinner='dots')
@@ -30,7 +30,7 @@ class Scraper:
         self._print_stats()
 
     @staticmethod
-    def _read_captcha_answer():
+    def _read_captcha_answer() -> str:
         print('Please enter captcha:\n')
         answer = sys.stdin.readline()
         return answer

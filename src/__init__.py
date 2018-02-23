@@ -6,7 +6,7 @@ from xdg import BaseDirectory
 
 # TODO: Handle network errors.
 
-def get_settings(platform_conf):
+def get_settings(platform_conf: str) -> [str, str]:
     conf_path = './conf.json' if (platform_conf == 'win32') \
         else BaseDirectory.save_config_path('slt-usage') + '/conf.json'
     try:
@@ -18,7 +18,7 @@ def get_settings(platform_conf):
     return [user, password]
 
 
-def create_conf(conf_path):
+def create_conf(conf_path: str) -> dict:
     print('Please enter your SLT username:\n')
     username = sys.stdin.readline()
     print('Please enter your SLT password:\n')
