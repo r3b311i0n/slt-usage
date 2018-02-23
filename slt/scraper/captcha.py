@@ -1,6 +1,7 @@
 from colorama import init, Fore, Style
 from halo import Halo
 from PIL import Image
+from selenium import webdriver
 from subprocess import call
 from threading import Thread
 from xdg import BaseDirectory
@@ -9,7 +10,7 @@ _SLT_URL = 'https://www.internetvas.slt.lk/SLTVasPortal-war/application/index.na
 
 
 class Captcha(Thread):
-    def __init__(self, browser, platform):
+    def __init__(self, browser: webdriver, platform: str):
         super().__init__()
         self.browser = browser
         self.platform = platform
