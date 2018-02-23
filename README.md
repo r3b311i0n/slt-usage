@@ -37,18 +37,22 @@ ___
 ### Usage
 
 ```sh
-$ slt-usage
+$ slt
 ```
+
+![screenshot][screenshot]
 
 ### TODO:
 
 * Mac support
+* Windows support
 
 ### License
 
 MIT
 
-[slt-logo]: ./.misc/slt-logo.png "SLT Logo"
+[slt-logo]: https://github.com/r3b311i0n/slt-usage/blob/master/.misc/slt-logo.png?raw=true "SLT Logo"
+[screenshot]: https://github.com/r3b311i0n/slt-usage/blob/master/.misc/screenshot.png?raw=true "Screenshot"
 
 [firefox]: https://www.mozilla.org/en-US/firefox
 [python]: https://www.python.org
