@@ -23,7 +23,7 @@ class Scraper:
         try:
             self.browser = webdriver.Firefox(firefox_options=self.firefox_options)
         except WebDriverException:
-            print('GeckoDriver and Firefox NOT FOUND! GeckoDriver and Firefox needs to be installed and in $PATH!')
+            print('GeckoDriver or Firefox NOT FOUND! GeckoDriver and Firefox needs to be installed and in $PATH!')
         Captcha(self.browser).start()
         self._submit_form()
         self._print_stats()
