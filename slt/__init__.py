@@ -1,6 +1,6 @@
 import json
 import sys
-from scraper import Scraper
+from .scraper import Scraper
 from xdg import BaseDirectory
 
 
@@ -31,7 +31,7 @@ def create_conf(conf_path):
     return json.load(open(conf_path))
 
 
-if __name__ == '__main__':
+def main():
     platform = sys.platform
     settings = get_settings(platform)
     Scraper(settings[0], settings[1], platform)

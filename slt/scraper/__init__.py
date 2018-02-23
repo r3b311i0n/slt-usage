@@ -5,7 +5,7 @@ from os import devnull
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
-from scraper.captcha import Captcha
+from .captcha import Captcha
 
 
 # TODO: Mac support.

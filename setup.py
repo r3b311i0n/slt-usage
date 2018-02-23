@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='slt',
     packages=find_packages(),
-    version='0.10.0',
+    version='0.10.2',
     description='Unofficial usage checker for SLT Internet',
     author='Amal Karunarathna',
     author_email='nasashinega@gmail.com',
