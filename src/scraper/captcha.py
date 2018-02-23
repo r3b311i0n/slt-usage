@@ -1,4 +1,3 @@
-import sys
 from colorama import init, Fore, Style
 from halo import Halo
 from PIL import Image
@@ -10,24 +9,24 @@ _SLT_URL = 'https://www.internetvas.slt.lk/SLTVasPortal-war/application/index.na
 
 
 class Captcha(Thread):
-    def __init__(self, browser):
+    def __init__(self, browser, platform):
         super().__init__()
         self.browser = browser
+        self.platform = platform
         self.spinner = Halo(text='Loading...', spinner='dots')
         self._show_captcha()
 
     def _show_captcha(self):
-        platform = sys.platform
-        xdg_captcha_cache = './cap.png' if (platform == 'win32') \
+        xdg_captcha_cache = './cap.png' if (self.platform == 'win32') \
             else BaseDirectory.save_cache_path('slt-usage') + '/cap.png'
-        if platform != 'win32':
+        if self.platform != 'win32':
             self.spinner.start()
         self.browser.get(_SLT_URL)
         elem = self.browser.find_element_by_css_selector('tr > td > img')
         with open(xdg_captcha_cache, 'w+b') as f:
             f.write(elem.screenshot_as_png)
 
-        if platform != 'win32':
+        if self.platform != 'win32':
             self.spinner.stop()
 
         try:

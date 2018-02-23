@@ -5,7 +5,6 @@ from xdg import BaseDirectory
 
 
 # TODO: Handle network errors.
-# TODO: Use a gif in README.md.
 
 def get_settings(platform_conf):
     conf_path = './conf.json' if (platform_conf == 'win32') \
