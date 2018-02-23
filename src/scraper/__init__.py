@@ -14,7 +14,7 @@ class Scraper:
     def __init__(self, user, password, platform):
         init()
         self.platform = platform
-        self.spinner = Halo(text='Loading', spinner='dots')
+        self.spinner = Halo(text='Loading...', spinner='dots')
         self.user = user
         self.password = password
         self.firefox_options = webdriver.FirefoxOptions()

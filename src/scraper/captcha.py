@@ -13,7 +13,7 @@ class Captcha(Thread):
     def __init__(self, browser):
         super().__init__()
         self.browser = browser
-        self.spinner = Halo(text='Loading', spinner='dots')
+        self.spinner = Halo(text='Loading...', spinner='dots')
         self._show_captcha()
 
     def _show_captcha(self):
